@@ -21,7 +21,7 @@ public class HangPane implements KeyListener{
 	 JLabel JL = new JLabel();
 	 JF.add(JP);
 	 JF.setVisible(true);
-	 JF.setDefaultCloseOperation(0);
+
 	 JF.setTitle("weeeeeeeeeeeee");
 	 JP.add(JL);
 	 JF.pack();
@@ -34,7 +34,7 @@ public class HangPane implements KeyListener{
 		 L=L+"_ ";
 	 }
 	 JL.setText(L);
-	 JF.addKeyListener(null);
+	 JF.addKeyListener();
 	// JP.requestFocus();
  }
  public static void HangRead() {
@@ -61,12 +61,13 @@ public class HangPane implements KeyListener{
 @Override
 public void keyTyped(KeyEvent e) {
 	
-	char M = (char)e.getKeyCode();
-	System.out.println(M);
+	 char ch = e.getKeyChar();
+	System.out.println(ch);
 }
 @Override
 public void keyPressed(KeyEvent e) {
-	// TODO Auto-generated method stub
+	 char ch = e.getKeyChar();
+		System.out.println(ch);
 	
 }
 @Override
