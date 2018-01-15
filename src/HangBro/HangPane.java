@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 public class HangPane implements KeyListener {
 	static ArrayList<Character> used = new ArrayList<Character>();
 	static ArrayList<String> ze = new ArrayList<String>();
-	static String LE;
+	static String LE="";
 	static int Lives = 10;
 	static String L = "";
 	static String tempstr="";
@@ -34,7 +34,15 @@ public class HangPane implements KeyListener {
 		JLabel man = new JLabel("");
 		JLabel Life = new JLabel();
 	public void HangMaker() {
-
+		
+		LE="";
+		Lives = 10;
+		L = "";
+		tempstr="";
+		
+for(int g=0; g<used.size();g++) {
+	used.remove(g);
+}
 		JF.add(JP);
 		
 		JP.add(man);
@@ -62,6 +70,7 @@ public class HangPane implements KeyListener {
 		JF.addKeyListener(this);
 		// JP.requestFocus();
 		Life.setText("" + Lives);
+		Lives = 10+LE.length();
 	}
 
 	public void HangRead() {
@@ -149,7 +158,7 @@ public class HangPane implements KeyListener {
 			if (tempstr.equals(LE)) {
 				play("src/HangBro/winner.wav");
 					JOptionPane.showMessageDialog(null, "winner");
-					
+					HangMaker();
 				}
 		} else {
 			System.err.println("Wrong");
@@ -159,6 +168,7 @@ public class HangPane implements KeyListener {
 			if(Lives==0) {
 				 play("src/HangBro/go.wav");
 			JOptionPane.showMessageDialog(null, "GaMeOvEr");
+			HangMaker();
 			}
 
 		}
