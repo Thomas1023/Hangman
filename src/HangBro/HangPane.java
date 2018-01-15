@@ -4,14 +4,21 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class HangPane implements KeyListener {
@@ -24,11 +31,12 @@ public class HangPane implements KeyListener {
 		JFrame JF = new JFrame();
 		JPanel JP = new JPanel();
 		JLabel JL = new JLabel();
-		JLabel man = new JLabel("웃");
+		JLabel man = new JLabel("");
 		JLabel Life = new JLabel();
 	public void HangMaker() {
 
 		JF.add(JP);
+		
 		JP.add(man);
 		JP.add(Life);
 		JF.setSize(500, 300);
@@ -39,7 +47,7 @@ public class HangPane implements KeyListener {
 		JP.add(JL);
 
 		HangRead();
-		man.setFont(new Font(man.getFont().getName(), man.getFont().getStyle(), 100));
+		JL.setFont(new Font(man.getFont().getName(), man.getFont().getStyle(), 100));
 		Life.setFont(new Font(man.getFont().getName(), man.getFont().getStyle(), 100));
 		Random rand = new Random();
 		int value = rand.nextInt(2999);
@@ -48,7 +56,7 @@ public class HangPane implements KeyListener {
 		ze.remove(value);
 		h--;
 		for (int e1 = 0; e1 < LE.length(); e1++) {
-			L = L + "_";
+			L = L + "-";
 		}
 		JL.setText(L);
 		JF.addKeyListener(this);
@@ -104,7 +112,16 @@ public class HangPane implements KeyListener {
 
 		}
 		if (gotit) {
-
+			
+			
+			
+			
+			
+			 
+			
+			
+			
+			play("src/HangBro/correct.wav");
 			System.out.println("Corret");
 			tempstr="";
 			for (int e1 = 0; e1 < LE.length(); e1++) {
@@ -118,7 +135,7 @@ public class HangPane implements KeyListener {
 					tempstr = tempstr + LE.charAt(e1);
 				}
 				else {
-					tempstr = tempstr + "_";
+					tempstr = tempstr + "-";
 					System.out.println();
 				}
 				
@@ -129,11 +146,23 @@ public class HangPane implements KeyListener {
 			L = tempstr;
 			System.out.println(L);
 			JL.setText(L);
+			if (tempstr.equals(LE)) {
+				play("src/HangBro/winner.wav");
+					JOptionPane.showMessageDialog(null, "winner");
+					
+				}
 		} else {
-			Lives--;
 			System.err.println("Wrong");
+			Lives--;
+			 Life.setText(""+Lives);
+			 play("src/HangBro/wrong.wav");
+			if(Lives==0) {
+				 play("src/HangBro/go.wav");
+			JOptionPane.showMessageDialog(null, "GaMeOvEr");
+			}
 
 		}
+		
 	}
 
 	@Override
@@ -144,5 +173,18 @@ public class HangPane implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 
+	}
+	
+	public static void play(String filename){
+	    try
+	    {
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(AudioSystem.getAudioInputStream(new File(filename)));
+	        clip.start();
+	    }
+	    catch (Exception exc)
+	    {
+	        exc.printStackTrace(System.out);
+	    }
 	}
 }
