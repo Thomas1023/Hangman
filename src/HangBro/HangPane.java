@@ -70,7 +70,7 @@ for(int g=0; g<used.size();g++) {
 		JF.addKeyListener(this);
 		// JP.requestFocus();
 		Life.setText("" + Lives);
-		Lives = 10+LE.length();
+		
 	}
 
 	public void HangRead() {
@@ -164,7 +164,7 @@ for(int g=0; g<used.size();g++) {
 			System.err.println("Wrong");
 			Lives--;
 			 Life.setText(""+Lives);
-			 play("src/HangBro/wrong.wav");
+			 play("src/HangBro/roblox.wav");
 			if(Lives==0) {
 				 play("src/HangBro/go.wav");
 			JOptionPane.showMessageDialog(null, "GaMeOvEr");
